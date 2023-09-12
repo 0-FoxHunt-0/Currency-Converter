@@ -17,7 +17,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     async function handleAmountChange() {
-      if (selectedFrom !== selectedTo) {
+      if (selectedFrom !== selectedTo && amount > 0) {
         const controller = new AbortController();
         const data: CurrencyModel = await currencyService.getCurrencyConversion(
           amount,
@@ -25,7 +25,7 @@ function App(): JSX.Element {
           selectedTo,
           controller
         );
-        setOutput(`The converted value is: ${data.rates[selectedTo]}`);
+        setOutput(`The converted value is: ${data.rates[selectedTo]} ${selectedTo}`);
         return () => {
           controller.abort();
         };
